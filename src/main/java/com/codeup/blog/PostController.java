@@ -1,13 +1,12 @@
 package com.codeup.blog;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 @Controller
 public class PostController {
-    @RequestMapping(path = "/post", method = RequestMethod.GET)
+//    @RequestMapping(path = "/post", method = RequestMethod.GET)
+    @GetMapping("/post")
     @ResponseBody
     public String post() {
         return "This is the posts index page";
@@ -22,7 +21,8 @@ public class PostController {
     public String postCreateGet( ) {
         return "view the form for creating a post" ;
     }
-    @RequestMapping(path = "/post/create", method = RequestMethod.POST)
+//    @RequestMapping(path = "/post/create", method = RequestMethod.POST)
+    @PostMapping("/post/create")
     @ResponseBody
     public String postCreatePost( ) {
         return "create a new post" ;
