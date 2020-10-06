@@ -4,22 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <title>roll-dice</title>
+    <header th:replace="partials/header :: header"></header>
 </head>
 <body>
-
-<h1>Choose one of the Six numbers</h1>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<h1 class="title mr-auto" style="color:#ffa7b5;">Choose one of the Six numbers</h1>
+<div class="number mr-auto" style="color:#ff748c;">
 <a href="/roll-dice/1">1</a>
 <a href="/roll-dice/2">2</a>
 <a href="/roll-dice/3">3</a>
 <a href="/roll-dice/4">4</a>
 <a href="/roll-dice/5">5</a>
 <a href="/roll-dice/6">6</a>
-
-<div th:if="${num}">
+</div>
+<div th:if="${num}" class="ifcondition mr-auto " style="color:#ff748c;" >
 <h1> The Number you pick is </h1><h1 th:text="${n}"></h1>
 <h1> The Random Number is </h1><h1 th:text="${num}"></h1>
 <h1 th:if="${n}==${num}"> You guessed the correct number</h1>
 <h1 th:unless="${n}==${num}"> You guessed the wrong number</h1>
 </div>
+<footer th:replace="partials/footer :: scripts"></footer>
 </body>
 </html>
