@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>roll-dice</title>
+</head>
+<body>
+
+<h1>Choose one of the Six numbers</h1>
+<a href="/roll-dice/1">1</a>
+<a href="/roll-dice/2">2</a>
+<a href="/roll-dice/3">3</a>
+<a href="/roll-dice/4">4</a>
+<a href="/roll-dice/5">5</a>
+<a href="/roll-dice/6">6</a>
+
+<div th:if="${num}">
+<h1> The Number you pick is </h1><h1 th:text="${n}"></h1>
+<h1> The Random Number is </h1><h1 th:text="${num}"></h1>
+<h1 th:if="${n}==${num}"> You guessed the correct number</h1>
+<h1 th:unless="${n}==${num}"> You guessed the wrong number</h1>
+</div>
+</body>
+</html>
