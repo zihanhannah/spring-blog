@@ -28,10 +28,10 @@ public class PostController {
         return "posts/index";
     }
 
-    @RequestMapping(path = "/post/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/post/show/{id}", method = RequestMethod.GET)
     public String postId(@PathVariable long id, Model model) {
-        Post post = new Post("First Post", "This is the first post");
-        model.addAttribute("post", post);
+//        Post post = postRepo.getOne(id);
+        model.addAttribute("post", postRepo.getOne(id));
         return "posts/show";
     }
 
@@ -50,7 +50,7 @@ public class PostController {
     }
 //    @RequestMapping(path = "/post/create", method = RequestMethod.POST)
     @PostMapping("/post/create")
-    @ResponseBody
+//    @ResponseBody
     public String postCreatePost( ) {
         return "create a new post" ;
     }
@@ -73,7 +73,6 @@ public class PostController {
     @GetMapping("/post/{id}/edit")
     public String postEditPostForm(@PathVariable long id, Model model){
         model.addAttribute("post",postRepo.getOne(id));
-
         return "posts/edit";
     }
 

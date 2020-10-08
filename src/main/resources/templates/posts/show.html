@@ -6,10 +6,15 @@
     <!--    <links th:replace="partials/links :: links"></links>-->
 </head>
 <body>
-
 <h2 th:text="${post.title}"></h2>
 <p th:text="${post.body}"></p>
-
+<form th:action="'/post/'+${post.id}+'/delete'" method="post">
+    <button type="submit" >Delete</button>
+</form>
+<!--    <form th:action="/post/${post.id}/edit" method="get">-->
+<!--        <button type="submit" >edit</button>-->
+<!--    </form>-->
+<a th:href="'/post/'+${post.id}+'/edit'">Edit</a>
 <!--<scripts th:replace="partials/script_partials :: scripts"/>-->
 </body>
 </html>
