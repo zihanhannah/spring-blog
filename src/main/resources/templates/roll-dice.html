@@ -1,14 +1,36 @@
 <!DOCTYPE html>
-
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>roll-dice</title>
-    <header th:replace="partials/header :: header"></header>
+    <title>Dice</title>
+    <link th:replace="partials/links :: links"/>
 </head>
 <body>
+<header th:replace="partials/header :: header"></header>
 <nav th:replace="partials/navbar :: navbar"></nav>
-<h1 class="title mr-auto" style="color:#ffa7b5;">Choose one of the Six numbers</h1>
+
+<main class="container">
+    <br>
+    <br>
+    <h2 th:text="${message}"></h2>
+    <br>
+    <h2 class="prompt"> What do you think will be rolled?</h2>
+    <form action="/roll-dice" method="post">
+        <h2>Choose a number</h2>
+        <button id="num1" class="di-num" name="number" type="submit" value="1">1</button>
+        <button id="num2" class="di-num" name="number" type="submit" value="2">2</button>
+        <button id="num3" class="di-num" name="number" type="submit" value="3">3</button>
+        <button id="num4" class="di-num" name="number" type="submit" value="4">4</button>
+        <button id="num5" class="di-num" name="number" type="submit" value="5">5</button>
+        <button id="num6" class="di-num" name="number" type="submit" value="6">6</button>
+    </form>
+</main>
+
+<footer th:replace="partials/footer :: footer"></footer>
+<scripts th:replace="partials/scripts :: scripts"></scripts>
+</body>
+</html>
+<!--<h1 class="title mr-auto" style="color:#ffa7b5;">what do you think will be rolled</h1>
 <div class="number mr-auto" style="color:#ff748c;">
 <a href="/roll-dice/1">1</a>
 <a href="/roll-dice/2">2</a>
@@ -21,8 +43,4 @@
 <h1> The Number you pick is </h1><h1 th:text="${n}"></h1>
 <h1> The Random Number is </h1><h1 th:text="${num}"></h1>
 <h1 th:if="${n}==${num}"> You guessed the correct number</h1>
-<h1 th:unless="${n}==${num}"> You guessed the wrong number</h1>
-</div>
-<footer th:replace="partials/footer :: scripts"></footer>
-</body>
-</html>
+<h1 th:unless="${n}==${num}"> You guessed the wrong number</h1>-->
