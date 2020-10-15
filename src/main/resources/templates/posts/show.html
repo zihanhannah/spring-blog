@@ -15,10 +15,10 @@
     <p th:text="${post.body}"></p>
     <p>Email: <span th:text="${post.user.email}"></span></p>
     <form style="display: inline" th:action="@{'/posts'}"><button>List</button></form>
-    <form th:action="'/post/'+${post.id}+'/delete'" method="post">
+    <form th:action="'/posts/'+${post.id}+'/delete'" method="post">
         <button type="submit">Delete</button>
     </form>
-    <form th:action="/post/${post.id}/edit" method="get">
+    <form th:action="'/posts/'+${post.id}+'/edit'" method="get">
         <button type="submit">edit</button>
     </form>
 

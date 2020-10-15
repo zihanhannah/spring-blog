@@ -44,35 +44,40 @@ public class PostController {
         model.addAttribute("post", post);
         return "posts/show";
     }
+//
+//    @RequestMapping(path = "/post/create", method = RequestMethod.GET)
+////    @ResponseBody
+//    public String postCreateGet( Model model) {
+////        List<Post> postList = new ArrayList<>();
+////        Post post1 = new Post("First Post", "This is the first post");
+////        Post post2 = new Post("Second Post", "This is the second post");
+////        post1.setId(1);id
+////        post2.setId(2);
+////        postList.add(post1);
+////        postList.add(post2);
+////        model.addAttribute("postList",postList);
+//        model.addAttribute("post", new Post());
+//        return "posts/index" ;
+//    }
 
-    @RequestMapping(path = "/post/create", method = RequestMethod.GET)
-//    @ResponseBody
-    public String postCreateGet( Model model) {
-//        List<Post> postList = new ArrayList<>();
-//        Post post1 = new Post("First Post", "This is the first post");
-//        Post post2 = new Post("Second Post", "This is the second post");
-//        post1.setId(1);
-//        post2.setId(2);
-//        postList.add(post1);
-//        postList.add(post2);
-//        model.addAttribute("postList",postList);
+    @GetMapping("/posts/create")
+    public String showCreatePost(Model model){
         model.addAttribute("post", new Post());
-        return "posts/index" ;
+        return "posts/create";
     }
-//    @RequestMapping(path = "/post/create", method = RequestMethod.POST)
-    @PostMapping("/post/create")
+    @PostMapping("/posts/create")
 //    @ResponseBody
     public String postCreatePost(@ModelAttribute Post post ) {
         if(post.getId()==0){
             post.setUser(userRepo.findAll().get(0));
-            emailService.prepareAndSend(post.getUser().getEmail(),"Created Post: " + post.getTitle(),
+            emailService.prepareAndSend(post,"Created Post: " + post.getTitle(),
                     post.getTitle() + "\n\n" + post.getBody());
-        }
+       }
 
             // Send email for an edit
         else {
                 post.setUser(postRepo.getOne(post.getId()).getUser()); // Get the user from the database
-                emailService.prepareAndSend(post.getUser().getEmail(),
+                emailService.prepareAndSend(post,
                         "Edited Post: " + post.getTitle(),
                         post.getTitle() + "\n\n" + post.getBody());
             }
@@ -80,25 +85,36 @@ public class PostController {
             return "redirect:/posts/" + post.getId();
     }
 
-    @PostMapping("/post/{id}/delete")
+    @PostMapping("/posts/{id}/delete")
     public String postDeletePost(@PathVariable long id){
-        postRepo.delete(postRepo.getOne(id));
-        return "redirect:/posts";
-//        redirect to the url not HTML
-    }
-    @PostMapping("/post/{id}/edit")
-    public String postEditPost(@PathVariable long id,@RequestParam (name="title") String title, @RequestParam (name="body") String body){
-        Post post = postRepo.getOne(id);
-        post.setTitle(title);
-        post.setBody(body);
-        postRepo.save(post);
-        return "redirect:/posts";
+        Post post = postRepo.getPostById(id);
+        post.setUser(postRepo.getPostById(post.getId()).getUser()); // Get the user from the database
 
+        // send email for a post delete
+        emailService.prepareAndSend(post,
+                "Created Post: " + post.getTitle(),
+                post.getTitle() + "\n\n" + post.getBody());
+        postRepo.delete(post);
+        return "redirect:/posts";
     }
-    @GetMapping("/post/{id}/edit")
-    public String postEditPostForm(@PathVariable long id, Model model){
-        model.addAttribute("post",postRepo.getOne(id));
-        return "posts/edit";
-    }
-
+//    @PostMapping("/post/{id}/edit")
+//    public String postEditPost(@PathVariable long id,@RequestParam (name="title") String title, @RequestParam (name="body") String body){
+//        Post post = postRepo.getOne(id);
+//        post.setTitle(title);
+//        post.setBody(body);
+//        postRepo.save(post);
+//        return "redirect:/posts";
+//
+//    }
+//    @GetMapping("/post/{id}/edit")
+//    public String postEditPostForm(@PathVariable long id, Model model){
+//        model.addAttribute("post",postRepo.getOne(id));
+//        return "posts/edit";
+//    }
+@GetMapping("/posts/{id}/edit")
+public String editAd(@PathVariable long id, Model model) {
+    Post post = postRepo.getPostById(id);
+    model.addAttribute("post", post);
+    return "posts/create";
+}
 }
