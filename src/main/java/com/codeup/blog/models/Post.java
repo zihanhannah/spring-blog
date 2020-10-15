@@ -2,6 +2,7 @@ package com.codeup.blog.models;
 
 import javax.persistence.*;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name="posts")
@@ -15,7 +16,12 @@ public class Post {
     private String title;
 
     @Column(nullable = false, columnDefinition = "TEXT")
+    //without the length, will give 255 as default
     private String body;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Post() {
     }
@@ -25,6 +31,20 @@ public class Post {
         this.body = body;
     }
 
+    public Post(long id, String title, String body, User user) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     public long getId() {
         return id;
     }

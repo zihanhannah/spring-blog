@@ -2,21 +2,33 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Show post</title>
-    <!--    <links th:replace="partials/links :: links"></links>-->
+    <title>Show Post List</title>
+    <link th:replace="partials/links :: links"/>
 </head>
 <body>
+<div th:replace="partials/header :: header"></div>
+<nav th:replace="partials/navbar :: navbar"/>
+
+<main class="container">
 <div th:each="post : ${postList}">
-<h2 th:text="${post.title}"></h2>
-<p th:text="${post.body}"></p>
-    <form th:action="'/post/'+${post.id}+'/delete'" method="post">
-    <button type="submit" >Delete</button>
+<!--    go to '/posts/id'-->
+    <form th:action="@{'/posts/' + ${post.id}}">
+        <h2 th:text="${post.title}"></h2>
+        <p th:text="${post.body}"></p>
+        <button>View</button>
     </form>
-<!--    <form th:action="/post/${post.id}/edit" method="get">-->
+</div>
+</main>
+<!--<p th:text="${post.user.username}"></p>-->
+<!--    <form th:action="'/post/'+${post.id}+'/delete'" method="post">-->
+<!--    <button type="submit" >Delete</button>-->
+<!--    </form>-->
+<!--    <form th:action="'/post/'+${post.id}+'/edit'" method="get">-->
 <!--        <button type="submit" >edit</button>-->
 <!--    </form>-->
-    <a th:href="'/post/'+${post.id}+'/edit'">Edit</a>
-</div>
-<!--<scripts th:replace="partials/script_partials :: scripts"/>-->
+
+<!--    <a th:href="'/post/'+${post.id}+'/edit'">Edit</a>-->
+    <div th:replace="partials/footer :: footer"></div>
+    <div th:replace="partials/scripts :: scripts"/></div>
 </body>
 </html>

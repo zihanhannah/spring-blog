@@ -2,19 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Show post</title>
-    <!--    <links th:replace="partials/links :: links"></links>-->
+    <title>Show Post</title>
+    <link th:replace="partials/links :: links"/>
 </head>
 <body>
-<h2 th:text="${post.title}"></h2>
-<p th:text="${post.body}"></p>
-<form th:action="'/post/'+${post.id}+'/delete'" method="post">
-    <button type="submit" >Delete</button>
-</form>
-<!--    <form th:action="/post/${post.id}/edit" method="get">-->
-<!--        <button type="submit" >edit</button>-->
-<!--    </form>-->
-<a th:href="'/post/'+${post.id}+'/edit'">Edit</a>
-<!--<scripts th:replace="partials/script_partials :: scripts"/>-->
+<div th:replace="partials/header :: header"></div>
+<nav th:replace="partials/navbar :: navbar"/>
+
+<main  class="container" th:if="${post}">
+
+    <h2 th:text="${post.title}"></h2>
+    <p th:text="${post.body}"></p>
+    <p>Email: <span th:text="${post.user.email}"></span></p>
+    <form style="display: inline" th:action="@{'/posts'}"><button>List</button></form>
+    <form th:action="'/post/'+${post.id}+'/delete'" method="post">
+        <button type="submit">Delete</button>
+    </form>
+    <form th:action="/post/${post.id}/edit" method="get">
+        <button type="submit">edit</button>
+    </form>
+
+    <!--<a th:href="'/post/'+${post.id}+'/edit'">Edit</a>-->
+
+
+</main>
+<div th:replace="partials/footer :: footer"></div>
+<div th:replace="partials/scripts :: scripts"/>
 </body>
 </html>
