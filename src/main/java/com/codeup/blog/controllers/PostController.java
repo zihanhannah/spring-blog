@@ -65,6 +65,7 @@ public class PostController {
         model.addAttribute("post", new Post());
         return "posts/create";
     }
+
     @PostMapping("/posts/create")
 //    @ResponseBody
     public String postCreatePost(@ModelAttribute Post post ) {
@@ -111,10 +112,10 @@ public class PostController {
 //        model.addAttribute("post",postRepo.getOne(id));
 //        return "posts/edit";
 //    }
-@GetMapping("/posts/{id}/edit")
-public String editAd(@PathVariable long id, Model model) {
-    Post post = postRepo.getPostById(id);
-    model.addAttribute("post", post);
-    return "posts/create";
-}
+    @GetMapping("/posts/{id}/edit")
+    public String editAd(@PathVariable long id, Model model) {
+        Post post = postRepo.getPostById(id);
+        model.addAttribute("post", post);
+        return "posts/create";
+    }
 }
