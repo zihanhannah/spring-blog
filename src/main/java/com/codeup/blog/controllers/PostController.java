@@ -68,7 +68,7 @@ public class PostController {
 
     @PostMapping("/posts/create")
 //    @ResponseBody
-    public String postCreatePost(@ModelAttribute Post post ) {
+    public String postCreatePost(@ModelAttribute Post post) {
         if(post.getId()==0){
             post.setUser(userRepo.findAll().get(0));
             emailService.prepareAndSend(post,"Created Post: " + post.getTitle(),
@@ -77,7 +77,7 @@ public class PostController {
 
             // Send email for an edit
         else {
-                post.setUser(postRepo.getOne(post.getId()).getUser()); // Get the user from the database
+//                post.setUser(postRepo.getOne(post.getId()).getUser()); // Get the user from the database
                 emailService.prepareAndSend(post,
                         "Edited Post: " + post.getTitle(),
                         post.getTitle() + "\n\n" + post.getBody());
