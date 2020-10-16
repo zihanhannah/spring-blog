@@ -5,6 +5,7 @@ import com.codeup.blog.models.User;
 import com.codeup.blog.repositories.PostRepository;
 import com.codeup.blog.repositories.UserRepository;
 import com.codeup.blog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -62,15 +63,20 @@ public class PostController {
 
     @GetMapping("/posts/create")
     public String showCreatePost(Model model){
+        if((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()==null) {
+            return "redirect:/login";
+
+        }
         model.addAttribute("post", new Post());
-        return "posts/create";
+            return "posts/create";
     }
 
     @PostMapping("/posts/create")
 //    @ResponseBody
     public String postCreatePost(@ModelAttribute Post post) {
         if(post.getId()==0){
-            post.setUser(userRepo.findAll().get(0));
+//            post.setUser(userRepo.findAll().get(0));
+            post.setUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
             emailService.prepareAndSend(post,"Created Post: " + post.getTitle(),
                     post.getTitle() + "\n\n" + post.getBody());
        }
